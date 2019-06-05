@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +19,17 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "Hello from:  "+title+"\n")
-	fmt.Fprintf(w, "I like big butts and I cannot lie...")
+	fmt.Fprintf(w, "I like big butts and I cannot lie...\n")
+	
+	ticker := time.NewTicker(5000 * time.Millisecond)
+    	go func() {
+        for t := range ticker.C {
+            fmt.Println("Tick at", t)
+        	}
+    	}()
+	time.Sleep(1600 * time.Millisecond)
+    	ticker.Stop()
+    	fmt.Println("Ticker stopped")
 	
 }
 
